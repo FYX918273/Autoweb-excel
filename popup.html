@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>老范智能网页题目采集助手</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>老范智能网页题目采集助手</h1>
+    
+    <div class="tabs">
+      <button id="smart-tab" class="tab-btn active">智能采集</button>
+      <button id="icve-tab" class="tab-btn">ICVE采集</button>
+      <button id="custom-tab" class="tab-btn">自定义采集</button>
+      <button id="auto-answer-tab" class="tab-btn">自动答题</button>
+      <button id="donate-tab" class="tab-btn">打赏</button>
+    </div>
+    
+    <!-- 智能采集面板 -->
+    <div id="smart-panel" class="panel">
+      <div class="html-input">
+        <h2>智能题目采集</h2>
+        <p class="tip">
+          <b>使用方法：</b><br>
+          1. 复制<b>一道题目</b>的HTML代码作为样本（右键题目→检查→找到题目容器→复制元素）<br>
+          2. 粘贴到下方文本框<br>
+          3. 点击"分析并采集全部"<br>
+          4. 系统会自动分析样本结构，然后采集页面上所有相似结构的题目
+        </p>
+        <textarea id="html-input" placeholder="在这里粘贴一道题目的HTML代码作为样本..."></textarea>
+        <div class="controls">
+          <button id="analyze-html" class="btn">分析并采集全部</button>
+          <button id="export-smart-btn" class="btn">导出表格</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ICVE采集面板 -->
+    <div id="icve-panel" class="panel" style="display: none;">
+      <div class="controls">
+        <button id="icve-collect-btn" class="btn">采集题目</button>
+        <button id="icve-export-btn" class="btn">导出表格</button>
+      </div>
+      <div class="tip">
+        <b>ICVE采集说明：</b><br>
+        此功能专为ICVE（职教云，作业页面）定制优化，使用预设选择器快速采集题目。<br>
+        导出后直接丢进AI生成答案
+      </div>
+    </div>
+    
+    <!-- 自定义采集面板 -->
+    <div id="custom-panel" class="panel" style="display: none;">
+      <div class="controls">
+        <button id="custom-collect-btn" class="btn">采集题目</button>
+        <button id="custom-export-btn" class="btn">导出表格</button>
+        <button id="custom-settings-btn" class="btn">设置</button>
+      </div>
+      
+      <div class="settings" id="custom-settings-panel" style="display: none;">
+        <h2>自定义选择器设置</h2>
+        <form id="custom-settings-form">
+          <div class="form-group">
+            <label for="number-selector">序号和题型选择器：</label>
+            <input type="text" id="number-selector" name="number-selector" placeholder="输入CSS选择器或XPath">
+          </div>
+          <div class="form-group">
+            <label for="question-selector">题目选择器：</label>
+            <input type="text" id="question-selector" name="question-selector" placeholder="输入CSS选择器或XPath">
+          </div>
+          <div class="form-group">
+            <label for="options-selector">选项选择器：</label>
+            <input type="text" id="options-selector" name="options-selector" placeholder="输入CSS选择器或XPath">
+          </div>
+          <button id="save-custom-settings" type="button" class="btn">保存设置</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- 自动答题面板 -->
+    <div id="auto-answer-panel" class="panel" style="display: none;">
+      <h2>自动答题</h2>
+      <p class="tip">
+        <b>使用方法：</b><br>
+        1. 在题目页面打开此插件<br>
+        2. 将答案按照格式粘贴到下方输入框<br>
+        3. 点击"立即开始"按钮<br>
+        4. 系统将自动为您选择正确答案
+      </p>
+      
+      <div class="form-group">
+        <label>答案格式示例：</label>
+        <div class="sample-answer">
+          1. B 以农业为基础，以工业为主导，以农轻重为序<br>
+          2. C 2001年7月1日，江泽民在庆祝中国共产党成立80周年大会上的讲话<br>
+          3. D 发展要有持久性、连续性，不仅当前要发展，而且要保证长远发展
+        </div>
+        <p class="tip-small">每行一道题，格式为"题号. 选项 选项内容"</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="answers-input">请粘贴答案：</label>
+        <textarea id="answers-input" placeholder="请按照格式粘贴答案..."></textarea>
+      </div>
+      
+      <div class="controls">
+        <button id="start-auto-answer" class="btn">立即开始自动答题</button>
+      </div>
+      
+      <div id="answer-status" class="answer-status" style="display: none;">
+        <div id="answer-progress">准备中...</div>
+        <div id="current-answer-info"></div>
+      </div>
+    </div>
+    
+    <!-- 打赏面板 -->
+    <div id="donate-panel" class="panel" style="display: none;">
+      <div class="donate-content">
+        <p class="donate-text">该脚本终身免费，不要付费购买！<br>但是接受打赏哈哈哈<br>QQ群闲聊+反馈：743037811</p>
+        <div class="donate-images">
+          <div class="donate-image">
+            <img src="images/wechatpay.JPG" alt="微信支付" />
+            <p>微信支付</p>
+          </div>
+          <div class="donate-image">
+            <img src="images/zfbpay.JPG" alt="支付宝" />
+            <p>支付宝</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="results">
+      <h2>采集结果</h2>
+      <div class="table-container">
+        <table id="results-table">
+          <thead id="results-header">
+            <tr>
+              <th>序号</th>
+              <th>题型</th>
+              <th>题目</th>
+              <th>选项A</th>
+              <th>选项B</th>
+              <th>选项C</th>
+              <th>选项D</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+            <!-- 这里将显示采集到的题目 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <div class="status-bar">
+      <span id="status-message">就绪</span>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 

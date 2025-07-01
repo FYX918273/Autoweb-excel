@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "老范智能题目采集助手",
+  "version": "2.0.0",
+  "description": "网页上提取题目并转换为表格格式",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "老范智能题目采集助手"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*.svg", "images/*.jpg", "images/*.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+} 
